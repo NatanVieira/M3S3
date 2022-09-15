@@ -28,8 +28,12 @@ public static class FuncionarioRepository {
     public static void Excluir(Funcionario funcionario){
         Funcionarios.Remove(funcionario);
     }
-    
+
     private static int RetornaID(){
         return new Random().Next(2,99999999);
+    }
+    
+    public static Funcionario ObterPorId(int id){
+        return Funcionarios.FirstOrDefault(f => f.Id == id);
     }
 }
