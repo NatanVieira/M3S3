@@ -1,6 +1,8 @@
 
 
-public class SalarioDTO {
+namespace rh.DTOs{
+    public class SalarioDTO {
 
-    public decimal Salario { get; set; }
+        public decimal Salario { get; set; }
+    }
 }

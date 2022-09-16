@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using rh.Security;
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);
 var builder = WebApplication.CreateBuilder(args);

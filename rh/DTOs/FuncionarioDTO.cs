@@ -1,16 +1,20 @@
 
 
-public class FuncionarioDTO {
+using rh.Models;
 
-    public string Nome { get; set; }
-    public string Senha { get; set; }
-    public EPermissoes Permissao { get; set; }
-    public decimal Salario { get; set; }
+namespace rh.DTOs{
+    public class FuncionarioDTO {
 
-    public FuncionarioDTO(string nome, string senha, EPermissoes permissao, decimal salario){
-        Nome = nome;
-        Senha = senha;
-        Permissao = permissao;
-        Salario = salario;
+        public string Nome { get; set; }
+        public string Senha { get; set; }
+        public EPermissoes Permissao { get; set; }
+        public decimal Salario { get; set; }
+
+        public FuncionarioDTO(string nome, string senha, EPermissoes permissao, decimal salario){
+            Nome = nome;
+            Senha = senha;
+            Permissao = permissao;
+            Salario = salario;
+        }
     }
 }

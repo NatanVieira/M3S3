@@ -1,15 +1,22 @@
 
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
+using rh.DTOs;
+using rh.Models;
+using rh.Repositories;
+using rh.ViewModels;
 
+namespace rh.Controllers {
     [ApiController]
-    [Route("api/funcionarios")]
+    [Route("[controller]")]
     public class FuncionariosController : ControllerBase {
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Administrador,Gerente,Funcionario")]
         public ActionResult<List<Funcionario>> Listar(){
+            if(User.IsInRole(EPermissoes.Funcionario.GetDisplayName()))
+                return Ok(FuncionarioRepository.Obter().Select(f => new FuncionarioListaViewModel(f.Nome, f.Permissao)).ToList());
             return Ok(FuncionarioRepository.Obter());
         }
 
@@ -55,3 +62,4 @@ using Microsoft.AspNetCore.Mvc;
             return NotFound();           
         }
     }
+}
