@@ -1,5 +1,6 @@
 
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
@@ -7,27 +8,32 @@ using Microsoft.AspNetCore.Mvc;
     public class FuncionariosController : ControllerBase {
 
         [HttpGet]
+        [Authorize]
         public ActionResult<List<Funcionario>> Listar(){
             return Ok(FuncionarioRepository.Obter());
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Cadastrar([FromBody] FuncionarioDTO funcionario){
             FuncionarioRepository.Adicionar(funcionario);
             return Created("api/funcionarios",funcionario);
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrador,Gerente")]
         public ActionResult ExcluirFuncionario([FromRoute] int id){
             return this.Excluir(id, 1);
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult ExcluirGerente([FromRoute] int id){
             return this.Excluir(id, 2);
         }
 
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Gerente")]
         public ActionResult AlterarSalario([FromBody] SalarioDTO salario,
                                            [FromRoute] int id){
             Funcionario funcionario = FuncionarioRepository.ObterPorId(id);
